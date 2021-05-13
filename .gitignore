@@ -1,0 +1,6 @@
+.idea/
+baseproject/mvnw
+baseproject/mvnw.cmd
+baseproject/.mvn/wrapper/maven-wrapper.jar
+baseproject/.mvn/wrapper/maven-wrapper.properties
+baseproject/.mvn/wrapper/MavenWrapperDownloader.java
