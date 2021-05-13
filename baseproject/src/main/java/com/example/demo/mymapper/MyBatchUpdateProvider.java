@@ -14,41 +14,65 @@ public class MyBatchUpdateProvider extends MapperTemplate {
         super(mapperClass, mapperHelper);
     }
 
-    public String batchUpdateMapper(MappedStatement ms){
-        //实体类对象
-        Class<?> entityClass = super.getEntityClass(ms);
-        //表名
+    public String batchUpdateMapper(MappedStatement statement){
+        //1.创建StringBuilder用于拼接SQL语句的各个组成部分
+        StringBuilder builder = new StringBuilder();
+
+        //2.拼接foreach标签
+        builder.append("<foreach collection=\"list\" item=\"record\" separator=\";\" >");
+
+        //3.获取实体类对应的Class对象
+        Class<?> entityClass = super.getEntityClass(statement);
+
+        //4.获取实体类在数据库中对应的表名
         String tableName = super.tableName(entityClass);
-        StringBuilder sqlBuilder = new StringBuilder();
-        //开始拼接sql
-        sqlBuilder.append("<foreach collection=\"list\" item=\"record\" separator=\";\">");
-        //拼接update子句
+
+        //5.生成update子句
         String updateClause = SqlHelper.updateTable(entityClass, tableName);
-        sqlBuilder.append(updateClause);
-        //拼接set子句
-        //获取所有列信息
+
+        builder.append(updateClause);
+
+        builder.append("<set>");
+
+        //6.获取所有字段信息
         Set<EntityColumn> columns = EntityHelper.getColumns(entityClass);
-        sqlBuilder.append("<set>");
+
         String idColumn = null;
-        String idValue = null;
-        //遍历所有列
-        for (EntityColumn entityColumn:columns) {
-            //这里暂不考虑联合主键
-            if(entityColumn.isId()){
-                //缓存主键的列名和值
+        String idHolder = null;
+
+        for (EntityColumn entityColumn : columns) {
+
+            boolean isPrimaryKey = entityColumn.isId();
+
+            //7.判断当前字段是否为主键
+            if(isPrimaryKey) {
+
+                //8.缓存主键的字段名和字段值
                 idColumn = entityColumn.getColumn();
-                idValue = entityColumn.getColumnHolder("record");
-            }else{
-                //获取非主键列的列名
-                String columnName = entityColumn.getColumn();
+
+                //※返回格式如:#{record.age,jdbcType=NUMERIC,typeHandler=MyTypeHandler}
+                idHolder = entityColumn.getColumnHolder("record");
+
+            }else {
+
+                //9.使用非主键字段拼接SET子句
+                String column = entityColumn.getColumn();
                 String columnHolder = entityColumn.getColumnHolder("record");
-                sqlBuilder.append(columnName).append(" = ").append(columnHolder).append(",");
+
+                builder.append(column).append("=").append(columnHolder).append(",");
+
             }
+
         }
-        sqlBuilder.append("</set>");
-        //拼接where子句
-        sqlBuilder.append("where ").append(idColumn).append(" = ").append(idValue);
-        sqlBuilder.append("</foreach>");
-        return sqlBuilder.toString();
+
+        builder.append("</set>");
+
+        //10.使用前面缓存的主键名、主键值拼接where子句
+        builder.append("where ").append(idColumn).append("=").append(idHolder);
+
+        builder.append("</foreach>");
+
+        //11.将拼接好的字符串返回
+        return builder.toString();
     }
 }
