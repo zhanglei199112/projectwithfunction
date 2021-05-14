@@ -30,6 +30,9 @@ public class User implements Serializable {
 //  @ColumnType(typeHandler = AddressTypeHandler.class)
   private Address address;
 
+  @Column(name="sex_")
+  private SexEnum sex;
+
   private static final long serialVersionUID = 1L;
 
   @Override
@@ -39,6 +42,7 @@ public class User implements Serializable {
         ", name='" + name + '\'' +
         ", age=" + age +
         ", address=" + address +
+        ", sex=" + sex +
         '}';
   }
 }

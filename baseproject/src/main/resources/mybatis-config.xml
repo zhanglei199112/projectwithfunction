@@ -8,7 +8,10 @@
 		<typeHandler 
 			handler="com.example.demo.handlers.AddressTypeHandler"
 			javaType="com.example.demo.entity.Address"/>
-			
+
+		<typeHandler
+			handler="com.example.demo.handlers.IndexTypeHandler"
+			javaType="com.example.demo.entity.SexEnum"/>
 	</typeHandlers>
 
 </configuration>
