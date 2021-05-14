@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService {
   public void batchUpdate(List<User> users) {
     userMapper.batchUpdateMapper(users);
   }
+
+  @Override
+  public void update(User user) {
+    userMapper.updateByPrimaryKeySelective(user);
+  }
 }

@@ -1,8 +1,12 @@
 package com.example.demo.config.mymapper;
 
+import com.example.demo.mapper.MyBatchUpdateMapper;
+import java.util.Properties;
 import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 
 @Configuration
 @AutoConfigureAfter(MybatisAutoConfiguration.class)
@@ -20,4 +24,5 @@ public class MyBatisConfiguration {
 //        mapperScannerConfigurer.setProperties(properties);
 //        return mapperScannerConfigurer;
 //    }
+
 }

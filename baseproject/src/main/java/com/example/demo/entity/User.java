@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.example.demo.handlers.AddressTypeHandler;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import tk.mybatis.mapper.annotation.ColumnType;
 
 @Table(name = "tb_user_")
 @Getter
@@ -24,19 +26,19 @@ public class User implements Serializable {
   @Column(name = "age_")
   private Integer age;
 
+  @Column(name="address_")
+//  @ColumnType(typeHandler = AddressTypeHandler.class)
+  private Address address;
+
   private static final long serialVersionUID = 1L;
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(getClass().getSimpleName());
-    sb.append(" [");
-    sb.append("Hash = ").append(hashCode());
-    sb.append(", id=").append(id);
-    sb.append(", name=").append(name);
-    sb.append(", age=").append(age);
-    sb.append(", serialVersionUID=").append(serialVersionUID);
-    sb.append("]");
-    return sb.toString();
+    return "User{" +
+        "id=" + id +
+        ", name='" + name + '\'' +
+        ", age=" + age +
+        ", address=" + address +
+        '}';
   }
 }

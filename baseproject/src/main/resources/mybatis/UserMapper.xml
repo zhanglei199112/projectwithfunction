@@ -6,6 +6,7 @@
     <id column="id_" jdbcType="BIGINT" property="id" />
     <result column="name_" jdbcType="VARCHAR" property="name" />
     <result column="age_" jdbcType="INTEGER" property="age" />
+    <result column="address_" jdbcType="VARCHAR" property="address"></result>
   </resultMap>
   <select id="findById" resultMap="base">
     select * from tb_user_ where id_ = #{id}

@@ -10,4 +10,6 @@ public interface UserService {
   void add(User user);
 
   void batchUpdate(List<User> users);
+
+  void update(User user);
 }
