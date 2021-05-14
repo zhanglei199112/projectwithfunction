@@ -36,11 +36,11 @@ public class UserController {
     List<User> users= new ArrayList<User>();
     User user = new User();
     user.setAge(20);
-    user.setName("aa");
+    user.setName("关雅琪");
     user.setId(1l);
     User user1 = new User();
     user1.setAge(20);
-    user1.setName("bb");
+    user1.setName("张磊");
     user1.setId(2l);
     users.add(user);
     users.add(user1);
