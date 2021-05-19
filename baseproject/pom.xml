@@ -62,6 +62,14 @@
       <artifactId>mapper-spring-boot-starter</artifactId>
       <version>2.1.5</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+      <version>2.1.5.RELEASE</version>
+    </dependency>
+
   </dependencies>
 
   <build>
