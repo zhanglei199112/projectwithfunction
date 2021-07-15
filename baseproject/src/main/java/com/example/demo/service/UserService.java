@@ -4,7 +4,7 @@ import com.example.demo.entity.User;
 
 public interface UserService {
 
-  User Sel(int id);
+  User sel(int id);
 
   void add(User user);
 }
